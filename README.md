@@ -1,70 +1,52 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.	We have following object(s);
+Department:
+[
+    {deptId: ‘1’, deptName: ‘Deliveries’},
+    {deptId: ‘2’, deptName: ‘Sales’},
+    {deptId: ‘3’, deptName: ‘Accounts’},
+    {deptId: ‘4’, deptName: ‘Marketing’},
+    {deptId: ‘5’, deptName: ‘IT’’},
+       ]
+ 
+Position:
+[
+    {posId: ‘1’, posName: ‘Sr Developer, deptId: ‘1’},
+    {posId: ‘2’, posName: ‘Jr Developer, deptId: ‘1’},
+    {posId: ‘3’, posName: ‘Programm Manager, deptId: ‘1’},
+    {posId: ‘4’, posName: ‘Architect, deptId: ‘1’},
+    {posId: ‘5’, posName: ‘Associate Executive, deptId: ‘2’},
+    {posId: ‘6’, posName: ‘Sales Executive, deptId: ‘2’},
+    {posId: ‘7’, posName: ‘Accounts Officer, deptId: ‘3’},
+    {posId: ‘8’, posName: ‘Chief Accounts Officer, deptId: ‘3’},
+    {posId: ‘9’, posName: ‘Associate Representative, deptId: ‘4’},
+    {posId: ‘10’, posName: ‘Sr Presentative, deptId: ‘4’},
+    {posId: ‘11’, posName: ‘IT Engineer, deptId: ‘5’},
+]
+ 
+Zone:
+[
+    {zoneId: ‘1’, zoneName: ‘North},
+    {zoneId: ‘2’, zoneName: ‘East},
+    {zoneId: ‘3’, zoneName: ‘South},
+    {zoneId: ‘4’, zoneName: ‘West},
+];
+ 
+Employee:
+[
+    {employeeId: ‘1’, firstName: ‘Nirav’, lastName: ‘Sarvaiya’, department: ‘1’, position: ‘1’, zone: ‘1’},
+    {employeeId: ‘1’, firstName: ‘Sudhanshu’, lastName: ‘Pandey, department: ‘2’, position: ‘5’, zone: ‘3’},
+];
+ 
+ 
+2.	Display this data on UI;
+ 
+3.	When user clicks on “ ” (Add) or  “ ” (Edit) button, Navigate to form which should be as follows;
+ 
+4.	In above form Position, Zone & Department are dropdowns. Position should be loaded as per department. Position department linking is available in Position object above. Dropdowns are as follows;
+Department
+ 
+Position
+ 
+Zone
+ 
+5.	Clicking on “ ” (Delete) icon should remove the record from object as well as from UI.
