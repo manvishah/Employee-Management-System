@@ -11,6 +11,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useSelector, useDispatch } from "react-redux";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import { Typography } from "@mui/material";
+import { useLocation, useNavigate } from "react-router";
+import { deleteEmployee } from "../redux/DataSlice";
+import { Link } from "react-router-dom";
+import Edit from "@mui/icons-material/Edit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,49 +41,118 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function AdminLogin() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const fetchData = useSelector((state) => {
     return state.DataReducer;
   });
-  let res=[];
-  const sortDepartment = fetchData.employee.map((data) => {
-    console.log(data);
-    fetchData.department.map((dept) => {
-      const newres = dept.deptId === data.department ? dept.deptName : null;
-      res.push(newres)
-      console.log("res", res);
-    //   return {data,department:res}
-    });
-  });
-console.log('sort',sortDepartment)
+  const fetchLocalStorage =
+    location.pathname === "/adminLogin"
+      ? JSON.parse(localStorage.getItem("employee"))
+        ? JSON.parse(localStorage.getItem("employee")).employee
+        : fetchData.employee
+      : JSON.parse(localStorage.getItem("employee")).result;
+
+  const fetchInformation = JSON.parse(localStorage.getItem("employee"));
+  const getDepartment = (deptId) => {
+    const dept =
+      fetchInformation &&
+      fetchInformation.department.find((department) => {
+        if (department.deptId === deptId) {
+          return true;
+        }
+        return false;
+      });
+    return dept.deptName || null;
+  };
+
+  const getPosition = (positionId) => {
+    const post =
+      fetchInformation &&
+      fetchInformation.position.find((position) => {
+        if (position.posId === positionId) {
+          return true;
+        }
+        return false;
+      });
+    return post.posName || null;
+  };
+  const addEmployee = () => {
+    navigate("/signUp");
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="md">
+        <Typography sx={{ mx: 40, my: 5 }}>
+          {location.pathname === "/adminLogin"
+            ? "Admin Login"
+            : "Employee Login"}
+        </Typography>
+
         <TableContainer component={Paper}>
           <Table
-            sx={{ minWidth: 700, height: "80vh", my: 6 }}
+            sx={{ minWidth: 100, height: "40vh", my: 3 }}
             aria-label="customized table"
           >
             <TableHead>
+              {location.pathname === "/adminLogin" ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "left",
+                    marginLeft: "500px",
+                  }}
+                >
+                  <Typography>Add Employee</Typography>
+                  <AddIcon
+                    sx={{ cursor: "pointer" }}
+                    onClick={addEmployee}
+                  ></AddIcon>
+                </div>
+              ) : (
+                ""
+              )}
               <TableRow>
                 <StyledTableCell>Employee</StyledTableCell>
-                <StyledTableCell align="center">Department</StyledTableCell>
-                <StyledTableCell align="right">Actions</StyledTableCell>
+                <StyledTableCell align="left">Department</StyledTableCell>
+                <StyledTableCell>Actions</StyledTableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {fetchData.employee.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.calories}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                </StyledTableRow>
+
+            {fetchLocalStorage &&
+              fetchLocalStorage.map((row) => (
+                <TableBody>
+                  <StyledTableRow key={row.employeeId}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.name}
+                      <br />
+                      <br /> {getPosition(row.position)}
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                      {getDepartment(row.department)}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {location.pathname === "/adminLogin" ? (
+                        <DeleteIcon
+                          onClick={() =>
+                            dispatch(deleteEmployee(row.employeeId))
+                          }
+                        ></DeleteIcon>
+                      ) : (
+                        <Link to={`edit/${row.employeeId}`}>
+                          <EditIcon
+                            style={{ color: "black", marginRight: "10px" }}
+                          />
+                        </Link>
+                      )}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                </TableBody>
               ))}
-            </TableBody>
           </Table>
         </TableContainer>
       </Container>

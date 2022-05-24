@@ -2,8 +2,7 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import SignUp from "./SignUp";
-import Grid from "@mui/material/Grid";
+
 const Confirm = () => {
   return (
     <div>

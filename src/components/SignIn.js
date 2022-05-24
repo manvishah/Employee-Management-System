@@ -14,32 +14,51 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useLocation } from "react-router";
 import { useState } from "react";
-import { adminSignIn } from "../redux/DataSlice";
+import { adminSignIn, employeeSignIn, fetchAllData } from "../redux/DataSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const theme = createTheme();
 
 export default function SignIn() {
   const [user, setUser] = useState({ username: "", password: "" });
+  const [success, setsuccess] = useState(true);
   const location = useLocation();
   const dispatch = useDispatch();
-  const navigate=useNavigate();
-  const loginSuccess = useSelector((state) => {
-    return state.DataReducer;
-  });
+  const navigate = useNavigate();
+  const loginResult = useSelector((state) => state.DataReducer);
   const switchUser = location.pathname === "/admin" ? "Admin" : "Employee";
+  const [fetchLogin, setFetchLogin] = useState("");
 
-  console.log(location, loginSuccess);
+  useEffect(() => {
+    dispatch(fetchAllData());
+    setFetchLogin(loginResult);
+  }, [loginResult]);
+
+  console.log("loginSUcess", loginResult, fetchLogin);
   const handleSubmit = (event) => {
     event.preventDefault();
     if (switchUser === "Admin") {
       dispatch(adminSignIn(user));
-      if (loginSuccess.result === true) {
-          navigate('/adminLogin')
+      if (loginResult.result === true) {
+        navigate("/adminLogin");
+      } else {
+        setsuccess(false);
       }
     }
-    console.log("user", user);
+    if (switchUser === "Employee") {
+      dispatch(employeeSignIn(user));
+      console.log(loginResult)
+      if (loginResult.result) {
+        navigate("/employeeLogin");
+      } else {
+        setsuccess(false);
+      }
+
+      console.log(loginResult)
+
+    }
   };
 
   return (
@@ -58,7 +77,7 @@ export default function SignIn() {
         }}
       >
         <Grid item xs={6} sm={8} md={5} component={Paper} elevation={6} square>
-          {!loginSuccess.result && (
+          {!success && (
             <Alert
               variant="filled"
               severity="error"

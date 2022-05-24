@@ -1,8 +1,7 @@
-
 export const admin = [
-    { adminId: "1", name: "Manvi Shah",password:'manvi123' }
-  ];
-  
+  { adminId: "1", name: "Manvi Shah", password: "manvi123" },
+];
+
 export const department = [
   { deptId: "1", deptName: "Deliveries" },
   { deptId: "2", deptName: "Sales" },
@@ -34,17 +33,17 @@ export const zone = [
 
 export const employee = [
   {
-    employeeId: "1",
-    name:'Nirav Sarvaiya',
-    password:'nirav123',
+    employeeId: 1,
+    name: "Nirav Sarvaiya",
+    password: "nirav123",
     department: "1",
     position: "1",
     zone: "1",
   },
   {
-    employeeId: "1",
-    name:'Sudhanshu Pandey',
-    password:'s@2022',
+    employeeId: 2,
+    name: "Sudhanshu Pandey",
+    password: "s@2022",
     department: "2",
     position: "5",
     zone: "3",
